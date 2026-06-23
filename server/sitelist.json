@@ -1,0 +1,16 @@
+{
+  "sites": [
+    {
+      "domain": "example.com",
+      "severity": "warning",
+      "title": "Warning",
+      "message": "This site is on the monitored sitelist."
+    },
+    {
+      "domain": "wikipedia.org",
+      "severity": "info",
+      "title": "Research Site",
+      "message": "This site matched the weekly synced sitelist."
+    }
+  ]
+}

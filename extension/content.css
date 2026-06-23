@@ -1,0 +1,53 @@
+/* The main fixed top alert bar */
+#site-alert-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  padding: 12px 16px;
+  color: white;
+
+  /* Use the maximum z-index so the bar appears above page content */
+  z-index: 2147483647;
+
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Warning style for flagged sites */
+.site-alert-warning {
+  background: #92400e;
+}
+
+/* Info style for general monitored sites */
+.site-alert-info {
+  background: #1f2937;
+}
+
+/* Success style for approved or trusted sites */
+.site-alert-success {
+  background: #166534;
+}
+
+/* Danger style for high-risk sites */
+.site-alert-danger {
+  background: #991b1b;
+}
+
+/* Inner layout for the alert message and close button */
+.site-alert-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* Close button for dismissing the alert bar */
+#site-alert-close {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}

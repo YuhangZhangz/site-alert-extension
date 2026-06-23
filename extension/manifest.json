@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Site Alert Bar",
+  "version": "1.0.0",
+  "description": "Shows a top-bar alert when the current site matches a remote sitelist.",
+  "permissions": ["storage"],
+  "host_permissions": ["<all_urls>", "http://localhost:3000/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

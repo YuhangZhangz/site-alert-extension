@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Site Alert Dashboard</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup-container">
+      <header class="popup-header">
+        <h1>Site Alert</h1>
+        <p>Remote sitelist dashboard</p>
+      </header>
+
+      <section class="stat-card">
+        <span class="stat-label">Last Sync</span>
+        <strong id="last-sync">Loading...</strong>
+      </section>
+
+      <section class="stat-card">
+        <span class="stat-label">Sites Loaded</span>
+        <strong id="sites-loaded">0</strong>
+      </section>
+
+      <section class="stat-card">
+        <span class="stat-label">Activations</span>
+        <strong id="activations">0</strong>
+      </section>
+
+      <section class="stat-card">
+        <span class="stat-label">Dismissed Sites</span>
+        <strong id="dismissed-sites">0</strong>
+      </section>
+
+      <button id="clear-dismissed">Clear Dismissed Sites</button>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
