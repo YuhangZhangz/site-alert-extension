@@ -29,7 +29,8 @@ body {
 }
 
 /* Dashboard statistic card */
-.stat-card {
+.stat-card,
+.top-sites-card {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -51,6 +52,50 @@ body {
 /* Main value in each card */
 .stat-card strong {
   font-size: 15px;
+}
+
+/* Header area for the top sites analytics card */
+.top-sites-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* List container for matched site visit counts */
+.top-sites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* One row in the top sites list */
+.top-site-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 13px;
+}
+
+/* Domain name in a top site row */
+.top-site-domain {
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Visit count in a top site row */
+.top-site-count {
+  font-size: 13px;
+}
+
+/* Empty state when no visits have been tracked */
+.empty-state {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
 }
 
 /* Button used to clear dismissed site state */

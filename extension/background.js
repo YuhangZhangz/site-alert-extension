@@ -67,13 +67,32 @@ function matchSite(currentUrl, sites) {
   });
 }
 
+// Track how many times a matched site has been visited.
+async function trackMatchedSite(currentUrl) {
+  const hostname = normalizeDomain(new URL(currentUrl).hostname);
+
+  const data = await chrome.storage.local.get("siteVisits");
+  const siteVisits = data.siteVisits || {};
+
+  siteVisits[hostname] = (siteVisits[hostname] || 0) + 1;
+
+  await chrome.storage.local.set({
+    siteVisits
+  });
+}
+
 // Listen for requests from the content script.
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type !== "CHECK_SITE") return;
 
   getSiteList()
-    .then((sites) => {
+    .then(async (sites) => {
       const matchedSite = matchSite(message.url, sites);
+
+      // Only track visits when the current site matches the sitelist.
+      if (matchedSite) {
+        await trackMatchedSite(message.url);
+      }
 
       sendResponse({
         shouldShow: Boolean(matchedSite),
