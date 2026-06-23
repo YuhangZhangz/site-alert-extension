@@ -1,10 +1,12 @@
 /* Popup body size and base style */
 body {
   margin: 0;
-  width: 280px;
+  width: 360px;
+  max-height: 600px;
   font-family: Arial, sans-serif;
   background: #f9fafb;
   color: #111827;
+  overflow-y: auto;
 }
 
 /* Main popup container */
@@ -115,4 +117,48 @@ body {
 
 #clear-dismissed:hover {
   background: #374151;
+}
+
+/* Button used to force the extension to fetch the latest remote sitelist */
+#force-refresh {
+  width: 100%;
+  padding: 9px 10px;
+  margin-bottom: 8px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#force-refresh:hover {
+  background: #1d4ed8;
+}
+
+/* Card showing information about the active site */
+.current-site-card {
+  padding: 10px;
+  margin-bottom: 10px;
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+/* Layout for one current site field */
+.current-site-row {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+/* Header area for the current site card */
+.current-site-header {
+  margin-bottom: 6px;
 }

@@ -15,6 +15,14 @@
       "message": "This site matched the weekly synced sitelist.",
       "actionText": "Open Wikipedia",
       "actionUrl": "https://www.wikipedia.org"
+    },
+    {
+      "domain": "*.reddit.com",
+      "severity": "info",
+      "title": "Reddit Network",
+      "message": "This subdomain is monitored.",
+      "actionText": "Visit Reddit",
+      "actionUrl": "https://reddit.com"
     }
   ]
 }

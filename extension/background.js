@@ -57,13 +57,28 @@ function normalizeDomain(domain) {
 
 // Check whether the current URL matches any domain in the sitelist.
 function matchSite(currentUrl, sites) {
-  const hostname = normalizeDomain(new URL(currentUrl).hostname);
+  const hostname = normalizeDomain(
+    new URL(currentUrl).hostname
+  );
 
   return sites.find((site) => {
     const domain = normalizeDomain(site.domain);
 
-    // Match both exact domains and subdomains.
-    return hostname === domain || hostname.endsWith("." + domain);
+    // Support wildcard domains such as *.reddit.com
+    if (domain.startsWith("*.")) {
+      const rootDomain = domain.substring(2);
+
+      return (
+        hostname === rootDomain ||
+        hostname.endsWith("." + rootDomain)
+      );
+    }
+
+    // Match exact domains and normal subdomains
+    return (
+      hostname === domain ||
+      hostname.endsWith("." + domain)
+    );
   });
 }
 
