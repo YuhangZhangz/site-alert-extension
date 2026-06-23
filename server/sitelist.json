@@ -4,13 +4,17 @@
       "domain": "example.com",
       "severity": "warning",
       "title": "Warning",
-      "message": "This site is on the monitored sitelist."
+      "message": "This site is on the monitored sitelist.",
+      "actionText": "Learn More",
+      "actionUrl": "https://example.com"
     },
     {
       "domain": "wikipedia.org",
       "severity": "info",
       "title": "Research Site",
-      "message": "This site matched the weekly synced sitelist."
+      "message": "This site matched the weekly synced sitelist.",
+      "actionText": "Open Wikipedia",
+      "actionUrl": "https://www.wikipedia.org"
     }
   ]
 }

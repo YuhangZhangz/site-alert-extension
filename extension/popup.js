@@ -7,11 +7,22 @@ function formatDate(timestamp) {
   return new Date(timestamp).toLocaleString();
 }
 
+// Safely update text content only when the element exists.
+function setText(id, value) {
+  const element = document.getElementById(id);
+
+  if (!element) {
+    return;
+  }
+
+  element.textContent = value;
+}
+
 // Render the top matched sites from the analytics object.
 function renderTopSites(siteVisits) {
   const container = document.getElementById("top-sites-list");
 
-  // If the popup HTML has not been updated yet, avoid crashing the popup.
+  // Avoid crashing if popup.html is missing the analytics container.
   if (!container) {
     return;
   }
@@ -51,17 +62,10 @@ async function loadDashboard() {
   const dismissedSites = data.dismissedSites || {};
   const siteVisits = data.siteVisits || {};
 
-  document.getElementById("last-sync").textContent = formatDate(
-    data.lastFetchAt
-  );
-
-  document.getElementById("sites-loaded").textContent = siteList.length;
-
-  document.getElementById("activations").textContent =
-    data.activationCount || 0;
-
-  document.getElementById("dismissed-sites").textContent =
-    Object.keys(dismissedSites).length;
+  setText("last-sync", formatDate(data.lastFetchAt));
+  setText("sites-loaded", siteList.length);
+  setText("activations", data.activationCount || 0);
+  setText("dismissed-sites", Object.keys(dismissedSites).length);
 
   renderTopSites(siteVisits);
 }
@@ -79,7 +83,9 @@ async function clearDismissedSites() {
 document.addEventListener("DOMContentLoaded", () => {
   loadDashboard();
 
-  document
-    .getElementById("clear-dismissed")
-    .addEventListener("click", clearDismissedSites);
+  const clearButton = document.getElementById("clear-dismissed");
+
+  if (clearButton) {
+    clearButton.addEventListener("click", clearDismissedSites);
+  }
 });

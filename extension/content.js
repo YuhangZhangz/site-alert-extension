@@ -4,12 +4,8 @@ async function isDismissed(hostname) {
   const dismissedSites = data.dismissedSites || {};
   const expirationTime = dismissedSites[hostname];
 
-  // If this site was never dismissed, show the alert.
-  if (!expirationTime) {
-    return false;
-  }
+  if (!expirationTime) return false;
 
-  // If the saved expiration time is still in the future, skip the alert.
   return Date.now() < expirationTime;
 }
 
@@ -18,34 +14,24 @@ async function dismissSite(hostname) {
   const data = await chrome.storage.local.get("dismissedSites");
   const dismissedSites = data.dismissedSites || {};
 
-  // Suppress this site's alert for 24 hours.
   dismissedSites[hostname] = Date.now() + 24 * 60 * 60 * 1000;
 
-  await chrome.storage.local.set({
-    dismissedSites
-  });
+  await chrome.storage.local.set({ dismissedSites });
 }
 
 // Wrap the main logic in an async function so we can check dismiss state first.
 (async () => {
   const hostname = window.location.hostname.replace(/^www\./, "");
 
-  // Skip rendering if the current site was dismissed recently.
-  if (await isDismissed(hostname)) {
-    return;
-  }
+  if (await isDismissed(hostname)) return;
 
-  // Ask the background service worker whether the current page matches the sitelist.
   chrome.runtime.sendMessage(
     {
       type: "CHECK_SITE",
       url: window.location.href
     },
     (response) => {
-      // Do nothing if the current site is not on the sitelist.
       if (!response?.shouldShow) return;
-
-      // Prevent duplicate alert bars on the same page.
       if (document.getElementById("site-alert-bar")) return;
 
       const bar = document.createElement("div");
@@ -55,23 +41,29 @@ async function dismissSite(hostname) {
       const message =
         response.site.message || "This site is included in the monitored list.";
 
-      // Use severity from the remote sitelist to control the visual style.
       const severity = response.site.severity || "info";
+      const actionText = response.site.actionText;
+      const actionUrl = response.site.actionUrl;
+
       bar.classList.add(`site-alert-${severity}`);
 
-      // Build the alert bar UI.
+      // Build optional action button only when both text and URL are provided.
+      const actionButtonHtml =
+        actionText && actionUrl
+          ? `<a class="site-alert-action" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionText}</a>`
+          : "";
+
       bar.innerHTML = `
         <div class="site-alert-inner">
           <strong>${title}</strong>
           <span>${message}</span>
+          ${actionButtonHtml}
           <button id="site-alert-close" aria-label="Close alert">×</button>
         </div>
       `;
 
-      // Insert the alert bar at the top of the page.
       document.body.prepend(bar);
 
-      // Let the user close the alert bar and remember that choice for 24 hours.
       document
         .getElementById("site-alert-close")
         .addEventListener("click", async () => {

@@ -6,9 +6,7 @@
   right: 0;
 
   padding: 12px 16px;
-  color: white;
 
-  /* Use the maximum z-index so the bar appears above page content */
   z-index: 2147483647;
 
   font-family: Arial, sans-serif;
@@ -17,25 +15,29 @@
 
 /* Warning style for flagged sites */
 .site-alert-warning {
-  background: #92400e;
+  background: #f59e0b;
+  color: #111827;
 }
 
 /* Info style for general monitored sites */
 .site-alert-info {
-  background: #1f2937;
+  background: #2563eb;
+  color: white;
 }
 
 /* Success style for approved or trusted sites */
 .site-alert-success {
-  background: #166534;
+  background: #16a34a;
+  color: white;
 }
 
 /* Danger style for high-risk sites */
 .site-alert-danger {
-  background: #991b1b;
+  background: #dc2626;
+  color: white;
 }
 
-/* Inner layout for the alert message and close button */
+/* Inner layout for the alert message, action button, and close button */
 .site-alert-inner {
   display: flex;
   align-items: center;
@@ -43,11 +45,45 @@
   gap: 14px;
 }
 
+/* Optional action link configured by the remote sitelist */
+.site-alert-action {
+  padding: 5px 12px;
+
+  border: 1px solid #4b5563;
+  border-radius: 999px;
+
+  color: white;
+  background: #4b5563;
+
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Hover state for the action link */
+.site-alert-action:hover {
+  background: #374151;
+  border-color: #374151;
+}
+
+/* Make the warning action button use a gray pill with white text */
+.site-alert-warning .site-alert-action {
+  color: white;
+  background: #4b5563;
+  border-color: #4b5563;
+}
+
+/* Hover state for the warning action button */
+.site-alert-warning .site-alert-action:hover {
+  background: #374151;
+  border-color: #374151;
+}
+
 /* Close button for dismissing the alert bar */
 #site-alert-close {
   border: none;
   background: transparent;
-  color: white;
+  color: inherit;
   font-size: 22px;
   cursor: pointer;
 }
